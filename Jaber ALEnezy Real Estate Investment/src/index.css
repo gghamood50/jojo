@@ -1,0 +1,304 @@
+/* ================================================================
+   JABER ALENEZY REAL ESTATE — LUXURY CORPORATE DESIGN SYSTEM
+   Tailwind CSS v4 + Custom Design Tokens
+   ================================================================ */
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------
+   DESIGN TOKENS — CSS Custom Properties
+   ---------------------------------------------------------------- */
+@theme {
+  /* ── Brand Palette ─────────────────────────────────────── */
+  --color-midnight: #0A192F;
+  --color-midnight-light: #112240;
+  --color-midnight-dark: #060F1F;
+  --color-gold: #C5A059;
+  --color-gold-light: #D4B574;
+  --color-gold-dark: #A8873D;
+  --color-parchment: #F9F9F7;
+  --color-parchment-warm: #F5F0E8;
+  --color-parchment-cool: #EEEEE9;
+
+  /* ── Neutral Tones ─────────────────────────────────────── */
+  --color-slate-100: #CCD6F6;
+  --color-slate-200: #8892B0;
+  --color-slate-300: #495670;
+
+  /* ── Semantic Colors ───────────────────────────────────── */
+  --color-success: #34D399;
+  --color-warning: #FBBF24;
+  --color-error: #F87171;
+
+  /* ── Typography Scale ──────────────────────────────────── */
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-arabic: 'Cairo', sans-serif;
+
+  /* ── Spacing Scale ─────────────────────────────────────── */
+  --spacing-section: 6rem;
+
+  /* ── Border Radius ─────────────────────────────────────── */
+  --radius-card: 1rem;
+  --radius-button: 0.5rem;
+  --radius-pill: 9999px;
+
+  /* ── Shadows ───────────────────────────────────────────── */
+  --shadow-card: 0 4px 24px rgba(10, 25, 47, 0.08);
+  --shadow-card-hover: 0 8px 40px rgba(10, 25, 47, 0.15);
+  --shadow-gold: 0 4px 20px rgba(197, 160, 89, 0.25);
+  --shadow-elevated: 0 20px 60px rgba(10, 25, 47, 0.12);
+
+  /* ── Transitions ───────────────────────────────────────── */
+  --ease-luxury: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Z-Index Scale ─────────────────────────────────────── */
+  --z-navbar: 100;
+  --z-modal: 200;
+  --z-tooltip: 300;
+}
+
+/* ----------------------------------------------------------------
+   BASE / RESET
+   ---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-parchment);
+  color: var(--color-midnight);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── Arabic Mode: Override fonts globally ───────────────── */
+html[dir="rtl"] body {
+  font-family: var(--font-arabic);
+}
+
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5,
+html[dir="rtl"] h6 {
+  font-family: var(--font-arabic);
+}
+
+/* ----------------------------------------------------------------
+   TYPOGRAPHY SYSTEM
+   ---------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-midnight);
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(2rem, 4vw, 3rem);     letter-spacing: -0.015em; }
+h3 { font-size: clamp(1.5rem, 3vw, 2rem);   letter-spacing: -0.01em; }
+h4 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
+
+p {
+  font-size: 1.05rem;
+  color: var(--color-slate-300);
+  max-width: 65ch;
+}
+
+a {
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: color 0.3s var(--ease-luxury);
+}
+a:hover {
+  color: var(--color-gold-dark);
+}
+
+/* ----------------------------------------------------------------
+   UTILITY CLASSES
+   ---------------------------------------------------------------- */
+
+/* ── Gold Gradient Text ──────────────────────────────────── */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold), var(--color-gold-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section Container ───────────────────────────────────── */
+.section-container {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* ── Gold Divider ────────────────────────────────────────── */
+.gold-divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-light));
+  border-radius: var(--radius-pill);
+}
+
+/* ── Glass Card ──────────────────────────────────────────── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.15);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: all 0.4s var(--ease-luxury);
+}
+.glass-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(197, 160, 89, 0.35);
+  transform: translateY(-4px);
+}
+
+/* ── Glass Card Dark ─────────────────────────────────────── */
+.glass-card-dark {
+  background: rgba(10, 25, 47, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(197, 160, 89, 0.12);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: all 0.4s var(--ease-luxury);
+}
+.glass-card-dark:hover {
+  box-shadow: var(--shadow-gold);
+  border-color: rgba(197, 160, 89, 0.3);
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+  color: var(--color-midnight-dark);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  transition: all 0.35s var(--ease-luxury);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-gold);
+}
+html[dir="rtl"] .btn-primary {
+  font-family: var(--font-arabic);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(197, 160, 89, 0.4);
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: var(--color-gold);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid var(--color-gold);
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  transition: all 0.35s var(--ease-luxury);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+html[dir="rtl"] .btn-outline {
+  font-family: var(--font-arabic);
+}
+.btn-outline:hover {
+  background: var(--color-gold);
+  color: var(--color-midnight-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+/* ── Scrollbar Styling ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-midnight-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-light);
+}
+
+/* ── Selection Color ─────────────────────────────────────── */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-midnight-dark);
+}
+
+/* ----------------------------------------------------------------
+   ANIMATIONS
+   ---------------------------------------------------------------- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold-dark) 0%,
+    var(--color-gold-light) 50%,
+    var(--color-gold-dark) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(197, 160, 89, 0); }
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s ease-in-out infinite;
+}
