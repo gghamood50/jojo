@@ -32,7 +32,6 @@ export const useLanguageStore = create<LanguageState>()(
           const newLang: Language = state.language === 'en' ? 'ar' : 'en';
           const newDir: Direction = newLang === 'ar' ? 'rtl' : 'ltr';
 
-          // Update the HTML element attributes for global CSS targeting
           document.documentElement.lang = newLang;
           document.documentElement.dir = newDir;
 
@@ -60,17 +59,15 @@ export const useLanguageStore = create<LanguageState>()(
       name: 'jaber-language-preference',
       // Only persist the language choice, rehydrate translations on load
       partialize: (state) => ({ language: state.language }),
-      onRehydrate: (_state) => {
-        return (rehydratedState) => {
-          if (rehydratedState) {
-            const lang = rehydratedState.language;
-            const dir: Direction = lang === 'ar' ? 'rtl' : 'ltr';
-            rehydratedState.direction = dir;
-            rehydratedState.t = translations[lang];
-            document.documentElement.lang = lang;
-            document.documentElement.dir = dir;
-          }
-        };
+      onRehydrateStorage: () => (rehydratedState) => {
+        if (rehydratedState) {
+          const lang = rehydratedState.language;
+          const dir: Direction = lang === 'ar' ? 'rtl' : 'ltr';
+          rehydratedState.direction = dir;
+          rehydratedState.t = translations[lang];
+          document.documentElement.lang = lang;
+          document.documentElement.dir = dir;
+        }
       },
     }
   )
